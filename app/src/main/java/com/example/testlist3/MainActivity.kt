@@ -6,7 +6,6 @@ import android.util.Log
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_chat_details.*
 import java.util.*
 import java.util.concurrent.Executors
@@ -25,14 +24,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_chat_details)
         initViews()
-        Timer().schedule(10000) {
-            factory.dataSource?.invalidate()
-        }
     }
 
     private fun initViews() {
         val messagesAdapter = TestMessagesAdapter(MessageDiffUtilCallback())
-        val layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        val layoutManager = LinearLayoutManager(this)
         factory = MessagesDataSourceFactory()
 
         recycleView.apply {
@@ -42,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val config = PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
             .setPageSize(10)
             .setInitialLoadSizeHint(30)
             .build()
@@ -53,5 +50,9 @@ class MainActivity : AppCompatActivity() {
             Log.e(CHAT_TAG,"ChatDetailsFragment submit PagedList")
             messagesAdapter.submitList(pagedList)
         })
+
+        Timer().schedule(10000) {
+            factory.dataSource?.invalidate()
+        }
     }
 }

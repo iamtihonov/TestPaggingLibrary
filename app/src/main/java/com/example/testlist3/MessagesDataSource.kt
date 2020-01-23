@@ -1,9 +1,9 @@
 package com.example.testlist3
 
 import android.util.Log
-import androidx.paging.ItemKeyedDataSource
+import androidx.paging.PositionalDataSource
 
-internal class MessagesDataSource : ItemKeyedDataSource<MessageTestModel, MessageTestModel>() {
+internal class MessagesDataSource : PositionalDataSource<MessageTestModel>() {
 
     companion object {
         const val TAG = "testBug2"
@@ -13,36 +13,28 @@ internal class MessagesDataSource : ItemKeyedDataSource<MessageTestModel, Messag
         Log.e(TAG, "MessagesDataSource init()")
     }
 
-    override fun loadInitial(params: LoadInitialParams<MessageTestModel>, callback: LoadInitialCallback<MessageTestModel>) {
+    override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<MessageTestModel>) {
         Log.e(TAG,"MessagesDataSource loadInitData()")
         val result = ArrayList<MessageTestModel>()
         for(index in 0..9) {
             result.add(MessageTestModel(index.toString(), index))
         }
 
-        callback.onResult(result)
+        callback.onResult(result, 0)
     }
 
-    override fun loadAfter(params: LoadParams<MessageTestModel>, callback: LoadCallback<MessageTestModel>) {
+    override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<MessageTestModel>) {
         Log.e(TAG,"MessagesDataSource loadAfter()")
         val result = ArrayList<MessageTestModel>()
-        val key = params.key.position
+        val startPosition = params.startPosition
 
-        if(key < 40) {
-            for (index in (key + 1)..(key + 10)) {
+        if(startPosition < 40) {
+            for (index in (startPosition + 1)..(startPosition + 10)) {
                 result.add(MessageTestModel(index.toString(), index))
             }
         }
 
         callback.onResult(result)
-    }
-
-    override fun loadBefore(params: LoadParams<MessageTestModel>, callback: LoadCallback<MessageTestModel>) {
-        //Реализация не нужна
-    }
-
-    override fun getKey(item: MessageTestModel): MessageTestModel {
-        return item
     }
 }
 
