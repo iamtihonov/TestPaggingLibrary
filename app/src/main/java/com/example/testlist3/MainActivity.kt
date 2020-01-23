@@ -19,7 +19,6 @@ class MainActivity : AppCompatActivity() {
         const val CHAT_TAG = "chat_tag"
     }
 
-    private lateinit var observer: RecyclerView.AdapterDataObserver
     private lateinit var factory: MessagesDataSourceFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,13 +40,6 @@ class MainActivity : AppCompatActivity() {
             adapter = messagesAdapter
             setHasFixedSize(true)
         }
-
-        observer = object : RecyclerView.AdapterDataObserver() {
-            override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
-                Log.e(CHAT_TAG,"ChatDetailsFragment onItemRangeInserted, positionStart = $positionStart")
-            }
-        }
-        messagesAdapter.registerAdapterDataObserver(observer)
 
         val config = PagedList.Config.Builder()
             .setPageSize(10)
