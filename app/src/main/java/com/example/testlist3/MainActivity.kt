@@ -6,7 +6,7 @@ import android.util.Log
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_chat_details.*
+import kotlinx.android.synthetic.main.activity_chat.*
 import java.util.*
 import java.util.concurrent.Executors
 import kotlin.concurrent.schedule
@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_chat_details)
+        setContentView(R.layout.activity_chat)
         initViews()
     }
 

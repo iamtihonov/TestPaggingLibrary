@@ -2,7 +2,7 @@ package com.example.testlist3
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.item_chat_test.view.*
+import kotlinx.android.synthetic.main.item_chat.view.*
 
 
 /**

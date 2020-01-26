@@ -21,10 +21,7 @@ class TestMessagesAdapter : PagedListAdapter<MessageTestModel, TestTextMessageHo
 
     @Suppress("CascadeIf")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TestTextMessageHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(
-            R.layout.item_chat_test,
-            parent, false
-        )
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_chat, parent, false)
         return TestTextMessageHolder(itemView)
     }
 
