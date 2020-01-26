@@ -16,7 +16,7 @@ internal class MessagesDataSource : PositionalDataSource<MessageTestModel>() {
     override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<MessageTestModel>) {
         Log.e(TAG,"MessagesDataSource loadInitData()")
         val result = ArrayList<MessageTestModel>()
-        for(index in 0..9) {
+        for(index in 1..10) {
             result.add(MessageTestModel(index.toString(), index))
         }
 

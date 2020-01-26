@@ -1,16 +1,14 @@
 package com.example.testlist3
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_chat.*
-import java.util.*
 import java.util.concurrent.Executors
-import kotlin.concurrent.schedule
-import androidx.lifecycle.Observer
 
 class MainActivity : AppCompatActivity() {
 
@@ -47,11 +45,11 @@ class MainActivity : AppCompatActivity() {
             .build()
 
         pagedListLiveData.observe(this, Observer<PagedList<MessageTestModel>?> { pagedList ->
-            Log.e(CHAT_TAG,"ChatDetailsFragment submit PagedList")
+            Log.e(CHAT_TAG, "ChatDetailsFragment submit PagedList")
             messagesAdapter.submitList(pagedList)
         })
 
-        Timer().schedule(10000) {
+        fab.setOnClickListener {
             factory.dataSource?.invalidate()
         }
     }
