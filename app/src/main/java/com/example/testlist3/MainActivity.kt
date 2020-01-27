@@ -2,6 +2,7 @@ package com.example.testlist3
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.paging.LivePagedListBuilder
@@ -17,6 +18,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private lateinit var factory: MessagesDataSourceFactory
+    private lateinit var messagesAdapter: TestMessagesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        val messagesAdapter = TestMessagesAdapter(MessageDiffUtilCallback())
+        messagesAdapter = TestMessagesAdapter(MessageDiffUtilCallback())
         val layoutManager = LinearLayoutManager(this)
         factory = MessagesDataSourceFactory()
 
@@ -50,7 +52,12 @@ class MainActivity : AppCompatActivity() {
         })
 
         fab.setOnClickListener {
+            showToast()
             factory.dataSource?.invalidate()
         }
+    }
+
+    private fun showToast() {
+        Toast.makeText(this, "Update clicked", Toast.LENGTH_LONG).show()
     }
 }
