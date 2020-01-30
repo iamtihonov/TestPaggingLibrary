@@ -12,6 +12,9 @@ interface MessageDao {
     fun selectPaged(): DataSource.Factory<Int, MessageModel>
 
     @Insert
+    fun insert(message: ArrayList<MessageModel>)
+
+    @Insert
     fun insert(message: MessageModel)
 
     @Query("DELETE FROM messages")

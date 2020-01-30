@@ -24,11 +24,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var factory: DataSource.Factory<Int, MessageModel>
     private lateinit var messagesAdapter: MessagesAdapter
     private lateinit var db: AppDatabase
+    private val messages = ArrayList<MessageModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
-        Stetho.initializeWithDefaults(this);
+        Stetho.initializeWithDefaults(this)
         db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "database")
             .allowMainThreadQueries()
             .build()
@@ -39,8 +40,10 @@ class MainActivity : AppCompatActivity() {
     private fun initTestData() {
         db.messageDao().nukeTable()
         for (index in 0..39) {
-            db.messageDao().insert(MessageModel(index, index.toString()))
+            messages.add(MessageModel(index, index.toString()))
         }
+
+        db.messageDao().insert(messages)
 
         initViews()
     }
@@ -71,7 +74,10 @@ class MainActivity : AppCompatActivity() {
         })
 
         fab.setOnClickListener {
-
+            val newPosition = messages.size
+            val newMessage = MessageModel(newPosition, newPosition.toString())
+            messages.add(newMessage)
+            db.messageDao().insert(newMessage)
         }
     }
 }
