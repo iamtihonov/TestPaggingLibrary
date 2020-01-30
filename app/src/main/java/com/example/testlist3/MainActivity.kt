@@ -74,6 +74,10 @@ class MainActivity : AppCompatActivity() {
         })
 
         fab.setOnClickListener {
+            val last = messages[messages.size - 1]
+            last.text = last.text + "!"
+            db.messageDao().update(last)
+
             val newPosition = messages.size
             val newMessage = MessageModel(newPosition, newPosition.toString())
             messages.add(newMessage)

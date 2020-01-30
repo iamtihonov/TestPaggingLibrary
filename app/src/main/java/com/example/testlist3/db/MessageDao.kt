@@ -4,6 +4,7 @@ import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 
 
 @Dao
@@ -16,6 +17,9 @@ interface MessageDao {
 
     @Insert
     fun insert(message: MessageModel)
+
+    @Update
+    fun update(message: MessageModel)
 
     @Query("DELETE FROM messages")
     fun nukeTable()

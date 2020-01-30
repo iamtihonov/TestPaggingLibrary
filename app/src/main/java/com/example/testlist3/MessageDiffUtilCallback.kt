@@ -17,7 +17,7 @@ class MessageDiffUtilCallback : DiffUtil.ItemCallback<MessageModel>() {
     }
 
     override fun areContentsTheSame(oldItem: MessageModel, newItem: MessageModel): Boolean {
-        val equals = oldItem.position == newItem.position
+        val equals = oldItem.position == newItem.position && oldItem.text == newItem.text
         Log.e(CHAT_TAG, "MessageDiffUtilCallback (equals = $equals")
         return equals
     }

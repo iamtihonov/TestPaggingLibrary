@@ -7,5 +7,5 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "messages")
 class MessageModel (
      @ColumnInfo(name = "position") @PrimaryKey val position: Int,
-     @ColumnInfo(name = "text") val text: String
+     @ColumnInfo(name = "text") var text: String
 )
