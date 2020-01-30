@@ -2,6 +2,7 @@ package com.example.testlist3
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.example.testlist3.db.MessageModel
 import kotlinx.android.synthetic.main.item_chat.view.*
 
 

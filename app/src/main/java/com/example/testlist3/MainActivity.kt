@@ -2,12 +2,16 @@ package com.example.testlist3
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.paging.DataSource
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.room.Room
+import com.example.testlist3.db.AppDatabase
+import com.example.testlist3.db.MessageModel
+import com.facebook.stetho.Stetho
 import kotlinx.android.synthetic.main.activity_chat.*
 import java.util.concurrent.Executors
 
@@ -17,19 +21,34 @@ class MainActivity : AppCompatActivity() {
         const val CHAT_TAG = "chat_tag"
     }
 
-    private lateinit var factory: MessagesDataSourceFactory
+    private lateinit var factory: DataSource.Factory<Int, MessageModel>
     private lateinit var messagesAdapter: MessagesAdapter
+    private lateinit var db: AppDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
+        Stetho.initializeWithDefaults(this);
+        db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "database")
+            .allowMainThreadQueries()
+            .build()
+
+        initTestData()
+    }
+
+    private fun initTestData() {
+        db.messageDao().nukeTable()
+        for (index in 0..39) {
+            db.messageDao().insert(MessageModel(index, index.toString()))
+        }
+
         initViews()
     }
 
     private fun initViews() {
         messagesAdapter = MessagesAdapter(MessageDiffUtilCallback())
         val layoutManager = LinearLayoutManager(this)
-        factory = MessagesDataSourceFactory()
+        factory = db.messageDao().selectPaged()
 
         recycleView.apply {
             this.layoutManager = layoutManager
@@ -52,12 +71,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         fab.setOnClickListener {
-            showToast()
-            factory.dataSource?.invalidate()
-        }
-    }
 
-    private fun showToast() {
-        Toast.makeText(this, "Update clicked", Toast.LENGTH_LONG).show()
+        }
     }
 }

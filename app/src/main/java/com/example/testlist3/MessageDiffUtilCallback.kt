@@ -2,6 +2,7 @@ package com.example.testlist3
 
 import android.util.Log
 import androidx.recyclerview.widget.DiffUtil
+import com.example.testlist3.db.MessageModel
 
 class MessageDiffUtilCallback : DiffUtil.ItemCallback<MessageModel>() {
 
