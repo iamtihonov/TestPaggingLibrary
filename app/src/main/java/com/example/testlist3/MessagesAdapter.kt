@@ -9,23 +9,23 @@ import androidx.recyclerview.widget.DiffUtil
 /**
  * Адаптер отвечающий за отображение исполнителей
  */
-class TestMessagesAdapter : PagedListAdapter<MessageTestModel, TestTextMessageHolder> {
+class MessagesAdapter : PagedListAdapter<MessageModel, MessageHolder> {
 
     companion object {
         const val TAG = "testList"
     }
 
     @Suppress("ConvertSecondaryConstructorToPrimary")
-    constructor(diffUtilCallback: DiffUtil.ItemCallback<MessageTestModel>)
+    constructor(diffUtilCallback: DiffUtil.ItemCallback<MessageModel>)
             : super(diffUtilCallback)
 
     @Suppress("CascadeIf")
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TestTextMessageHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_chat, parent, false)
-        return TestTextMessageHolder(itemView)
+        return MessageHolder(itemView)
     }
 
-    override fun onBindViewHolder(messageItemHolder: TestTextMessageHolder, position: Int) {
+    override fun onBindViewHolder(messageItemHolder: MessageHolder, position: Int) {
         Log.d(TAG, "ChatsAdapter onBindViewHolder pos = $position")
         val item = getItem(position)
 

@@ -6,7 +6,8 @@ import androidx.paging.PositionalDataSource
 /**
  * messages всегда передается один и тот же
  */
-internal class MessagesDataSource(private val messages: ArrayList<MessageTestModel>) : PositionalDataSource<MessageTestModel>() {
+internal class MessagesDataSource(private val messages: ArrayList<MessageModel>)
+    : PositionalDataSource<MessageModel>() {
 
     companion object {
         const val TAG = "chat_tag"
@@ -16,12 +17,12 @@ internal class MessagesDataSource(private val messages: ArrayList<MessageTestMod
         Log.e(TAG, "MessagesDataSource init()")
     }
 
-    override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<MessageTestModel>) {
+    override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<MessageModel>) {
         Log.e(TAG,"MessagesDataSource loadInitData()")
         callback.onResult(messages.subList(0, 10), 0)
     }
 
-    override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<MessageTestModel>) {
+    override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<MessageModel>) {
         Log.e(TAG,"MessagesDataSource loadAfter()")
         val startPosition = params.startPosition
         val endPosition = startPosition + params.loadSize

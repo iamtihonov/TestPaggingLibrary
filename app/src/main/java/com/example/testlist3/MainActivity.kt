@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private lateinit var factory: MessagesDataSourceFactory
-    private lateinit var messagesAdapter: TestMessagesAdapter
+    private lateinit var messagesAdapter: MessagesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        messagesAdapter = TestMessagesAdapter(MessageDiffUtilCallback())
+        messagesAdapter = MessagesAdapter(MessageDiffUtilCallback())
         val layoutManager = LinearLayoutManager(this)
         factory = MessagesDataSourceFactory()
 
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
             .setFetchExecutor(Executors.newSingleThreadExecutor())
             .build()
 
-        pagedListLiveData.observe(this, Observer<PagedList<MessageTestModel>?> { pagedList ->
+        pagedListLiveData.observe(this, Observer<PagedList<MessageModel>?> { pagedList ->
             Log.e(CHAT_TAG, "ChatDetailsFragment submit PagedList")
             messagesAdapter.submitList(pagedList)
         })
